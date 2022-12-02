@@ -34,25 +34,40 @@ public class SeedData
             //Add member
             Member Margo = new Member
             {
-                IdStudent = mbiret.Id,
-                IdGroup = BDS.Id,
+                IdStudent = mbiret,
+                IdGroup = BDS,
             };
             Member Alex = new Member
             {
-                IdStudent = alaudebert.Id,
-                IdGroup = BDS.Id,
+                IdStudent = alaudebert,
+                IdGroup = BDS,
             };
             context.Members.AddRange(Margo, Alex);
 
             //Add events
-            Event Interpromo = new Event
+            Event interpromo = new Event
             {
-                GroupeId = BDS.Id,
+                GroupeId = BDS,
                 Date = new DateTime(2022, 11, 27),
                 Name = "Interpromo",
                 Description = "Tournoi sportif entre les promos !",
             };
-            context.Events.Add(Interpromo);
+            Event secretSanta = new Event
+            {
+                GroupeId = BDS,
+                Date = new DateTime(2022, 12, 07),
+                Name = "Secret Santa Raclette",
+                Description = "Petite soirée chill entre nous",
+            };
+            context.Events.AddRange(interpromo, secretSanta);
+
+            //Add GroupViewer
+            GroupViewer BDSSecretSanta = new GroupViewer
+            {
+                IdEvent = secretSanta,
+                IdGroup = BDS,
+            };
+            context.GroupViewers.Add(BDSSecretSanta);
             context.SaveChanges();
         }
     }

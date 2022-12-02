@@ -9,6 +9,7 @@ public class ENSCContext : DbContext
     public DbSet<Event> Events { get; set; } = null!;
     public DbSet<Group> Groups { get; set; } = null!;
     public DbSet<Member> Members { get; set; } = null!;
+    public DbSet<GroupViewer> GroupViewers { get; set; } = null!;
     public string DbPath { get; private set; }
 
     public ENSCContext()

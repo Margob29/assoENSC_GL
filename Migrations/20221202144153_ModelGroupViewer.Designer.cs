@@ -3,6 +3,7 @@ using System;
 using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace projetalexmargo.Migrations
 {
     [DbContext(typeof(ENSCContext))]
-    partial class ENSCContextModelSnapshot : ModelSnapshot
+    [Migration("20221202144153_ModelGroupViewer")]
+    partial class ModelGroupViewer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -65,27 +68,6 @@ namespace projetalexmargo.Migrations
                     b.HasIndex("PresidentId");
 
                     b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("ENSC.GroupViewer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IdEventId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IdGroupId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdEventId");
-
-                    b.HasIndex("IdGroupId");
-
-                    b.ToTable("GroupViewers");
                 });
 
             modelBuilder.Entity("ENSC.Member", b =>
@@ -156,25 +138,6 @@ namespace projetalexmargo.Migrations
                         .IsRequired();
 
                     b.Navigation("President");
-                });
-
-            modelBuilder.Entity("ENSC.GroupViewer", b =>
-                {
-                    b.HasOne("ENSC.Event", "IdEvent")
-                        .WithMany()
-                        .HasForeignKey("IdEventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ENSC.Group", "IdGroup")
-                        .WithMany()
-                        .HasForeignKey("IdGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("IdEvent");
-
-                    b.Navigation("IdGroup");
                 });
 
             modelBuilder.Entity("ENSC.Member", b =>

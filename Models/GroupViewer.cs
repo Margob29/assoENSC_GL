@@ -1,9 +1,9 @@
 namespace ENSC;
 
-public class Member
+public class GroupViewer
 {
     public int Id { get; set; }
-    public Student IdStudent { get; set; } = null!;
+    public Event IdEvent { get; set; } = null!;
     public Group IdGroup { get; set; } = null!;
 
 }
