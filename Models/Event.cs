@@ -7,5 +7,7 @@ public class Event
     public DateTime Date { get; set; }
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
-    public bool Visibility { get; set; }
+
+    //List of IdGroup which can access to the event
+    public List<int>? Visibility { get; set; }
 }
