@@ -20,3 +20,18 @@ body {
 .card-header{
   background-color: rgb(73, 22, 87);
 }
+
+.btn-BDE{
+  border-color: rgb(226, 43, 43);
+  color: rgb(226, 43, 43);
+}
+
+.btn-BDS{
+  border-color: rgb(43, 226, 70);
+  color: rgb(43, 226, 70);
+}
+
+.btn-BDA{
+  border-color: blue;
+  color: blue;
+}
