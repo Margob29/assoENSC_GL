@@ -9,7 +9,7 @@ builder.Services.AddDbContext<ENSCContext>();
 var app = builder.Build();
 
 //TODO : mettre une condition pour que ça le fasse que qd c'est vide
-SeedData.InitBd();
+//SeedData.InitBd();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
