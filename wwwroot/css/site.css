@@ -16,3 +16,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.orange {
+  border-color: #FFC300;
+}
+
+.purple {
+  border-color: #39005E;
+}
