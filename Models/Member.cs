@@ -1,4 +1,4 @@
-namespace ENSC;
+namespace ENSC.Models;
 
 public class Member
 {

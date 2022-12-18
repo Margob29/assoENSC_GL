@@ -17,8 +17,13 @@ body {
   margin-bottom: 60px;
 }
 
-.card-header{
+.bg-ENSC{
   background-color: rgb(73, 22, 87);
+}
+.border-purple
+{
+  border : 4px;
+  border-color: rgb(73, 22, 87);
 }
 
 .btn-BDE{

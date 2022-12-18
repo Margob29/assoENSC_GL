@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using ENSC;
+using ENSC.Models;
 
-namespace Data;
+namespace ENSC.Data;
 
 public class ENSCContext : DbContext
 {

@@ -1,18 +1,37 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using projet_alex_margo.Models;
+using ENSC.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace projet_alex_margo.Controllers;
+namespace ENSC.Controllers;
 
 public class EventController : Controller
 {
+    private readonly ENSCContext _context;
+    public EventController(ENSCContext context)
+    {
+        _context = context;
+    }
 
-    public IActionResult Event()
+    //GET all the events
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var events = await _context.Events.Include(s => s.Group).ToListAsync();
+        return View(events);
     }
-    public IActionResult Details()
+
+    //GET an event with his id
+    public async Task<IActionResult> Details(int? id)
     {
-        return View();
+        if (id == null)
+        {
+            return NotFound();
+        }
+        var e = await _context.Events.Include(s => s.Group).SingleOrDefaultAsync(s => s.Id == id);
+        if (e == null)
+        {
+            return NotFound();
+        }
+        return View(e);
     }
+
 }
