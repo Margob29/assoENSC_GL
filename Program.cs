@@ -1,13 +1,21 @@
 using ENSC.Data;
+using System.Text.Json.Serialization;
+using ENSC.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//To ignore cicular references
+builder.Services.AddControllersWithViews().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ENSCContext>();
 
 var app = builder.Build();
 
+//Put datas in DB if it's empty
 SeedData.InitBd();
 
 // Configure the HTTP request pipeline.
