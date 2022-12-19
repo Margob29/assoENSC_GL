@@ -1,11 +1,16 @@
-namespace Data;
-using ENSC;
+namespace ENSC.Data;
+using ENSC.Models;
 public class SeedData
 {
     public static void InitBd()
     {
         using (var context = new ENSCContext())
         {
+            //If BD is empty
+            if (context.Events.Any())
+            {
+                return;
+            }
             // Add student
             Student alaudebert = new Student
             {
@@ -29,7 +34,12 @@ public class SeedData
                 Name = "BDS",
                 President = alaudebert,
             };
-            context.Groups.Add(BDS);
+            Group BDE = new Group
+            {
+                Name = "BDE",
+                President = mbiret,
+            };
+            context.Groups.AddRange(BDS, BDE);
 
             //Add member
             Member Margo = new Member
@@ -47,16 +57,16 @@ public class SeedData
             //Add events
             Event interpromo = new Event
             {
-                GroupeId = BDS,
+                Group = BDS,
                 Date = new DateTime(2022, 11, 27),
                 Name = "Interpromo",
                 Description = "Tournoi sportif entre les promos !",
             };
             Event secretSanta = new Event
             {
-                GroupeId = BDS,
+                Group = BDE,
                 Date = new DateTime(2022, 12, 07),
-                Name = "Secret Santa Raclette",
+                Name = "Gala",
                 Description = "Petite soirée chill entre nous",
             };
             context.Events.AddRange(interpromo, secretSanta);
