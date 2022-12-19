@@ -39,4 +39,12 @@ body {
 .btn-BDA{
   border-color: blue;
   color: blue;
+
+.orange {
+  border-color: #FFC300;
+}
+
+.purple {
+  border-color: #39005E;
+
 }
