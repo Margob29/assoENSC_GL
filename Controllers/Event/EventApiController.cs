@@ -21,7 +21,8 @@ public class EventApiController : ControllerBase
     public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
     {
         var events = _context.Events
-            .OrderBy(s => s.Date);
+            .OrderBy(s => s.Date)
+            .Include(s => s.Group);
 
         return await events.ToListAsync();
     }
@@ -41,13 +42,15 @@ public class EventApiController : ControllerBase
         return _event;
     }
 
-    /*// /!\ Ne fonctionne pas, à revoir
+    // /!\ Ne fonctionne pas, à revoir
     // --------------- UPDATE -----------------
     //Update an event with his id
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateEvent(int id, Event _event)
+    public async Task<IActionResult> UpdateEvent(int id, EventDTO eventDTO)
     {
-        if (id != _event.Id) return BadRequest();
+        if (id != eventDTO.Id) return BadRequest();
+
+        Event _event = new Event(eventDTO);
 
         _context.Entry(_event).State = EntityState.Modified;
         try
@@ -65,7 +68,7 @@ public class EventApiController : ControllerBase
     private bool TodoExists(int id)
     {
         return _context.Events.Any(m => m.Id == id);
-    }*/
+    }
 
     // --------------- CREATE -----------------
     [HttpPost]
@@ -79,5 +82,16 @@ public class EventApiController : ControllerBase
         await _context.SaveChangesAsync();
 
         return CreatedAtAction(nameof(CreateEvent), new { id = _event.Id }, _event);
+    }
+
+    // --------------- DELETE -----------------
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteEvent(int id)
+    {
+        var _event = await _context.Events.FindAsync(id);
+        if (_event == null) return NotFound();
+        _context.Events.Remove(_event);
+        await _context.SaveChangesAsync();
+        return NoContent();
     }
 }
