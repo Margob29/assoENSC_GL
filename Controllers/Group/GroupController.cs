@@ -15,7 +15,7 @@ public class GroupController : Controller
     //GET all the groups
     public async Task<IActionResult> Index()
     {
-        var groups = await _context.Groups.Include(s => s.Events).ToListAsync();
+        var groups = await _context.Groups.Include(s => s.Events).Include(p => p.President).ToListAsync();
         return View(groups);
     }
 

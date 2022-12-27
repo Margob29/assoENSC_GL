@@ -10,4 +10,9 @@ public class Student
     public DateTime Promo { get; set; }
     public List<Group>? Groups { get; set; }
     public int Status { get; set; }
+
+    public override string ToString()
+    {
+        return Name;
+    }
 }
