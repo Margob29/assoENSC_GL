@@ -1,0 +1,49 @@
+@model IEnumerable<ENSC.Models.Group>
+
+@{
+    ViewData["Title"] = "Groups";
+}
+
+<h1 class="text-center">Clubs</h1>
+<hr />
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-3">
+            <div class="card border-dark mb-3">
+               
+                    <div class="card-header bg-ENSC text-center text-white fw-bold fs-4">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </div>
+                    <div class="card-body">
+                        <img src="/interpromo.JPG" class="img-fluid" alt="Photo du club ">
+                        <br />
+                        <br />
+                        <div class="row">
+                            @if (item.Events != null)
+                            {
+                                @foreach (var clubEvent in item.Events)
+                                {
+                                    <a class=" col text-decoration-none text-muted" asp-controller="Event" asp-action="Details" asp-route-id="@clubEvent.Id">
+                                        <div class="card border-dark">
+                                            <div class="card-body">
+                                                <p class="card-text text-center purple">@Html.DisplayFor(modelItem => clubEvent.Name)</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                <div class="card-footer">
+                    <p>@Html.DisplayNameFor(model => model.President) : @Html.DisplayFor(modelItem => item.President.EmailAdress)</p>
+                    <p>@Html.DisplayNameFor(model => model.NbMembers) : @Html.DisplayFor(modelItem => item.NbMembers)</p>
+                     <div class="d-flex flex-row-reverse">
+                        <a class="p-2 text-muted" asp-action="Details" asp-route-id="@item.Id">Voir les détails</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
