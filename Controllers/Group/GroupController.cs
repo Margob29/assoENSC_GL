@@ -33,5 +33,4 @@ public class GroupController : Controller
         }
         return View(e);
     }
-
 }

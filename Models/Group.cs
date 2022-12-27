@@ -7,11 +7,17 @@ public class Group
     public string Name { get; set; } = null!;
 
     [Display(Name = "Nombre de membres")]
-    public int? NbMembers { get; set; }
+
+    public List<Member>? Members { get; set; }
+    public int? NbMembers
+    {
+        get; set;
+    }
 
     public List<Event>? Events { get; set; }
 
     [Display(Name = "Président")]
     public Student President { get; set; } = null!; // TODO ça devrait pas être un membre ?
 
+    public string Description { get; set; } = null!;
 }

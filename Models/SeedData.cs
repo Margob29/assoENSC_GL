@@ -33,11 +33,14 @@ public class SeedData
             {
                 Name = "BDS",
                 President = alaudebert,
+                Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
             };
             Group BDE = new Group
             {
                 Name = "BDE",
                 President = mbiret,
+                Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
+
             };
             context.Groups.AddRange(BDS, BDE);
 
@@ -69,7 +72,22 @@ public class SeedData
                 Name = "Gala",
                 Description = "Petite soirée chill entre nous",
             };
-            context.Events.AddRange(interpromo, secretSanta);
+            Event krystal = new Event
+            {
+                Group = BDS,
+                Date = new DateTime(2022, 11, 27),
+                Name = "Krystal",
+                Description = "Tournoi sportif entre les écoles !",
+            };
+            Event wes = new Event
+            {
+                Group = BDS,
+                Date = new DateTime(2022, 12, 07),
+                Name = "WES",
+                Description = "Week end ski",
+            };
+
+            context.Events.AddRange(interpromo, secretSanta, krystal, wes);
 
             //Add GroupViewer
             GroupViewer BDSSecretSanta = new GroupViewer
@@ -78,6 +96,7 @@ public class SeedData
                 IdGroup = BDS,
             };
             context.GroupViewers.Add(BDSSecretSanta);
+
             context.SaveChanges();
         }
     }
