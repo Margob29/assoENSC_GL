@@ -6,16 +6,31 @@ public class Group
     public int Id { get; set; }
     public string Name { get; set; } = null!;
 
+    public List<Student> Students { get; set; } = new();
 
-    public List<Member>? Members { get; set; }
 
     [Display(Name = "Nombre de membres")]
-    public int? NbMembers { get; set; }
-
+    public int NbMembers { get; set; } = 0;
     public List<Event>? Events { get; set; }
+    /*
+        [Display(Name = "Président")]
+        public Student President { get; set; } = null!;
 
-    [Display(Name = "Président")]
-    public Student President { get; set; } = null!; // TODO ça devrait pas être un membre ?
+        public int PresidentId { get; set; }*/
 
     public string Description { get; set; } = null!;
+
+    public Group()
+    {
+        NbMembers = Students.Count();
+    }
+
+    public Group(GroupDTO dto)
+    {
+        Id = dto.Id;
+        Name = dto.Name;
+        Description = dto.Description;
+        NbMembers = dto.NbMembers;
+        //President = dto.PresidentId;
+    }
 }

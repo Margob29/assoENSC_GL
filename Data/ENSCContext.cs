@@ -8,7 +8,6 @@ public class ENSCContext : DbContext
     public DbSet<Student> Students { get; set; } = null!;
     public DbSet<Event> Events { get; set; } = null!;
     public DbSet<Group> Groups { get; set; } = null!;
-    public DbSet<Member> Members { get; set; } = null!;
     public DbSet<GroupViewer> GroupViewers { get; set; } = null!;
     public string DbPath { get; private set; }
 

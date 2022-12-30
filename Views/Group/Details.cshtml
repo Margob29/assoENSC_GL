@@ -40,12 +40,15 @@
     </div>
     <div class="col-3 justify-content-center text-center bg-light rounded">
         <h5 class="m-3">Liste des membres </h5>
-        @if (Model.Members != null)
+        <hr />
+        <br />
+        @if (Model.Students != null)
         {
-            @foreach (var menber in Model.Members)
+            @foreach (var student in Model.Students)
             {
-                @Html.DisplayFor(model => menber.IdStudent.Name)
+                <p>@Html.DisplayFor(model => student.Name) année : @Html.DisplayFor(model => student.Promo)</p>
             }
         }
+
     </div>
 </div>

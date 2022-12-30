@@ -40,9 +40,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <p>@Html.DisplayNameFor(model => model.President) : @Html.DisplayFor(modelItem =>
-                    item.President.EmailAdress)</p>
-                    <p>@Html.DisplayNameFor(model => model.NbMembers) : @Html.DisplayFor(modelItem => item.NbMembers)</p>
+                    <p>@Html.DisplayNameFor(item => item.NbMembers) : @Html.DisplayFor(model => item.NbMembers) </p>
                     <div class="d-flex flex-row-reverse">
                         <a class="p-2 text-muted" asp-action="Details" asp-route-id="@item.Id">Voir les détails</a>
                     </div>

@@ -11,19 +11,20 @@ public class SeedData
             {
                 return;
             }
+
             // Add student
             Student alaudebert = new Student
             {
                 Name = "Alaudebert",
                 EmailAdress = "alaudebert@ensc.fr",
-                Promo = new DateTime(2024),
+                Promo = 2024,
                 Status = 3,
             };
             Student mbiret = new Student
             {
                 Name = "Mbiret",
                 EmailAdress = "mbiret@ensc.fr",
-                Promo = new DateTime(2024),
+                Promo = 2024,
                 Status = 3,
             };
             context.Students.AddRange(alaudebert, mbiret);
@@ -32,30 +33,38 @@ public class SeedData
             Group BDS = new Group
             {
                 Name = "BDS",
-                President = alaudebert,
+                // President = alaudebert,
                 Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
+                Students = new List<Student> { alaudebert, mbiret }
             };
+
             Group BDE = new Group
             {
                 Name = "BDE",
-                President = mbiret,
+                // President = mbiret,
                 Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
-
+                Students = new List<Student> { alaudebert }
             };
             context.Groups.AddRange(BDS, BDE);
+            context.SaveChanges();
 
-            //Add member
-            Member Margo = new Member
+            var bds = context.Groups.Where(g => g.Name == "BDS").FirstOrDefault();
+
+            // Vérifier que le groupe a été trouvé
+            if (bds != null)
             {
-                IdStudent = mbiret,
-                IdGroup = BDS,
-            };
-            Member Alex = new Member
+                // Incrémenter le compteur de membre
+                bds.NbMembers = 2;
+            }
+
+            var bde = context.Groups.Where(g => g.Name == "BDE").FirstOrDefault();
+
+            // Vérifier que le groupe a été trouvé
+            if (bde != null)
             {
-                IdStudent = alaudebert,
-                IdGroup = BDS,
-            };
-            context.Members.AddRange(Margo, Alex);
+                // Incrémenter le compteur de membre
+                bde.NbMembers = 1;
+            }
 
             //Add events
             Event interpromo = new Event

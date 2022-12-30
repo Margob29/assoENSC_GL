@@ -11,16 +11,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace projetalexmargo.Migrations
 {
     [DbContext(typeof(ENSCContext))]
-    [Migration("20221202131250_UpdateMembers")]
-    partial class UpdateMembers
+    [Migration("20221230132714_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
 
-            modelBuilder.Entity("ENSC.Event", b =>
+            modelBuilder.Entity("ENSC.Models.Event", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,18 +33,12 @@ namespace projetalexmargo.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("GroupeId")
+                    b.Property<int>("GroupId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("Visibility")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -53,47 +47,50 @@ namespace projetalexmargo.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("ENSC.Group", b =>
+            modelBuilder.Entity("ENSC.Models.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("NbMembers")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PresidentId")
+                    b.Property<int>("NbMembers")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PresidentId");
-
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("ENSC.Member", b =>
+            modelBuilder.Entity("ENSC.Models.GroupViewer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("IdGroup")
+                    b.Property<int>("IdEventId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("IdStudent")
+                    b.Property<int>("IdGroupId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Members");
+                    b.HasIndex("IdEventId");
+
+                    b.HasIndex("IdGroupId");
+
+                    b.ToTable("GroupViewers");
                 });
 
-            modelBuilder.Entity("ENSC.Student", b =>
+            modelBuilder.Entity("ENSC.Models.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,8 +106,8 @@ namespace projetalexmargo.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Promo")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Promo")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
@@ -120,32 +117,69 @@ namespace projetalexmargo.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("ENSC.Event", b =>
+            modelBuilder.Entity("GroupStudent", b =>
                 {
-                    b.HasOne("ENSC.Group", null)
-                        .WithMany("Events")
-                        .HasForeignKey("GroupId");
+                    b.Property<int>("GroupsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("GroupsId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("GroupStudent");
                 });
 
-            modelBuilder.Entity("ENSC.Group", b =>
+            modelBuilder.Entity("ENSC.Models.Event", b =>
                 {
-                    b.HasOne("ENSC.Student", "President")
-                        .WithMany("Groups")
-                        .HasForeignKey("PresidentId")
+                    b.HasOne("ENSC.Models.Group", "Group")
+                        .WithMany("Events")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("President");
+                    b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("ENSC.Group", b =>
+            modelBuilder.Entity("ENSC.Models.GroupViewer", b =>
+                {
+                    b.HasOne("ENSC.Models.Event", "IdEvent")
+                        .WithMany()
+                        .HasForeignKey("IdEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ENSC.Models.Group", "IdGroup")
+                        .WithMany()
+                        .HasForeignKey("IdGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IdEvent");
+
+                    b.Navigation("IdGroup");
+                });
+
+            modelBuilder.Entity("GroupStudent", b =>
+                {
+                    b.HasOne("ENSC.Models.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ENSC.Models.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ENSC.Models.Group", b =>
                 {
                     b.Navigation("Events");
-                });
-
-            modelBuilder.Entity("ENSC.Student", b =>
-                {
-                    b.Navigation("Groups");
                 });
 #pragma warning restore 612, 618
         }
