@@ -2,10 +2,24 @@
 
 @{
     ViewData["Title"] = "Events";
+    var filtre = ViewData["filter"];
 }
 
 <h1 class="text-center">Evènements</h1>
 <hr />
+<div class="row">
+    <div class="col-sm-2">
+        <form asp-action="Index" method="get">
+            <select name="filter" class="form-select select-size" aria-label="event" onchange="this.form.submit()">
+                <option selected value="">Filtrer</option>
+                <option value="0">Tous les évènements</option>
+                <option value="1">Evènements à venir</option>
+                <option value="2">Evènements passés</option>
+            </select>
+        </form>
+    </div>
+</div>
+<br />
 <div class="row">
     @foreach (var item in Model)
     {
@@ -27,4 +41,9 @@
             </div>
         </div>
     }
+</div>
+<div class="container text-center">
+    <div class="col align-self-center">
+        <button class="btn btn-outline-primary" asp-controller="Event" asp-action="Create">Créer</button>
+    </div>
 </div>
