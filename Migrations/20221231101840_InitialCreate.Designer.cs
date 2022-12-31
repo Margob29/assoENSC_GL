@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace projetalexmargo.Migrations
 {
     [DbContext(typeof(ENSCContext))]
-    [Migration("20221230132714_InitialCreate")]
+    [Migration("20221231101840_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -64,7 +64,13 @@ namespace projetalexmargo.Migrations
                     b.Property<int>("NbMembers")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("PresidentId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PresidentId")
+                        .IsUnique();
 
                     b.ToTable("Groups");
                 });
@@ -98,6 +104,9 @@ namespace projetalexmargo.Migrations
 
                     b.Property<string>("EmailAdress")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -143,6 +152,17 @@ namespace projetalexmargo.Migrations
                     b.Navigation("Group");
                 });
 
+            modelBuilder.Entity("ENSC.Models.Group", b =>
+                {
+                    b.HasOne("ENSC.Models.Student", "President")
+                        .WithOne("Group")
+                        .HasForeignKey("ENSC.Models.Group", "PresidentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("President");
+                });
+
             modelBuilder.Entity("ENSC.Models.GroupViewer", b =>
                 {
                     b.HasOne("ENSC.Models.Event", "IdEvent")
@@ -180,6 +200,11 @@ namespace projetalexmargo.Migrations
             modelBuilder.Entity("ENSC.Models.Group", b =>
                 {
                     b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("ENSC.Models.Student", b =>
+                {
+                    b.Navigation("Group");
                 });
 #pragma warning restore 612, 618
         }

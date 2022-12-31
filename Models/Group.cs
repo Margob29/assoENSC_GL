@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace ENSC.Models;
 
 public class Group
@@ -12,17 +13,15 @@ public class Group
     [Display(Name = "Nombre de membres")]
     public int NbMembers { get; set; } = 0;
     public List<Event>? Events { get; set; }
-    /*
-        [Display(Name = "Président")]
-        public Student President { get; set; } = null!;
 
-        public int PresidentId { get; set; }*/
+    public Student President { get; set; } = null!;
+    public int PresidentId { get; set; }
+
 
     public string Description { get; set; } = null!;
 
     public Group()
     {
-        NbMembers = Students.Count();
     }
 
     public Group(GroupDTO dto)

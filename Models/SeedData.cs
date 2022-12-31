@@ -35,7 +35,8 @@ public class SeedData
                 Name = "BDS",
                 // President = alaudebert,
                 Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
-                Students = new List<Student> { alaudebert, mbiret }
+                Students = new List<Student> { alaudebert, mbiret },
+                President = mbiret,
             };
 
             Group BDE = new Group
@@ -43,7 +44,8 @@ public class SeedData
                 Name = "BDE",
                 // President = mbiret,
                 Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
-                Students = new List<Student> { alaudebert }
+                Students = new List<Student> { alaudebert },
+                President = alaudebert,
             };
             context.Groups.AddRange(BDS, BDE);
             context.SaveChanges();

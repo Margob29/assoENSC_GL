@@ -25,4 +25,20 @@ public class ENSCContext : DbContext
         // Optional: log SQL queries to console
         options.LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information);
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Group>()
+                    .HasOne(g => g.President)
+                    .WithOne(s => s.Group)
+                    .HasForeignKey<Student>(s => s.GroupId);
+
+        modelBuilder.Entity<Student>()
+                    .HasOne(g => g.Group)
+                    .WithOne(s => s.President)
+                    .HasPrincipalKey<Student>(g => g.Id)
+                    .HasForeignKey<Group>(s => s.PresidentId)
+                    .IsRequired();
+    }
+
 }
