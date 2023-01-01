@@ -44,9 +44,21 @@
         <br />
         @if (Model.Students != null)
         {
-            @foreach (var student in Model.Students)
+            @foreach (var member in Model.Students)
             {
-                <p>@Html.DisplayFor(model => student.Name) année : @Html.DisplayFor(model => student.Promo)</p>
+                if (member.Role.Name == "Président" )
+                {
+
+                    <p class="purple"><strong>@Html.DisplayFor(model=>member.Role.Name)</strong> : @Html.DisplayFor(model
+            =>member.Student.Name) année
+                        @Html.DisplayFor(model=>member.Student.Promo)</p>
+                }
+                else
+                {
+                    <p>@Html.DisplayFor(model=>member.Role.Name): @Html.DisplayFor(model
+            =>member.Student.Name) année
+                        @Html.DisplayFor(model=>member.Student.Promo)</p>
+                }
             }
         }
     </div>

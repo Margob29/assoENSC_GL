@@ -40,7 +40,15 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <p>@Html.DisplayNameFor(item => item.President) : @Html.DisplayFor(model => item.President.Name) </p>
+                    @if (item.Students != null)
+                    {
+                        var president = item.Students
+                        .Where(s => s.Role.Name == "Président").FirstOrDefault();
+                        @if (president != null)
+                        {
+                            <p>Président : @president.Student.Name</p>
+                        }
+                    }
                     <p>@Html.DisplayNameFor(item => item.NbMembers) : @Html.DisplayFor(model => item.NbMembers) </p>
                     <div class="d-flex flex-row-reverse">
                         <a class="p-2 text-muted" asp-action="Details" asp-route-id="@item.Id">Voir les détails</a>

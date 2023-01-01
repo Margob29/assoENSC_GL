@@ -15,7 +15,7 @@ public class GroupController : Controller
     //GET all the groups
     public async Task<IActionResult> Index()
     {
-        var groups = await _context.Groups.Include(s => s.Events).Include(p => p.President).ToListAsync();
+        var groups = await _context.Groups.Include(s => s.Events).ToListAsync();
         //var groups = await _context.Groups.Include(s => s.Events).ToListAsync();
         return View(groups);
     }
@@ -27,7 +27,7 @@ public class GroupController : Controller
         {
             return NotFound();
         }
-        var e = await _context.Groups.Include(s => s.Events).Include(s => s.Students).SingleOrDefaultAsync(s => s.Id == id);
+        var e = await _context.Groups.Include(s => s.Events).Include(s => s.Students).ThenInclude(m => m.Role).Include(s => s.Students).ThenInclude(m => m.Student).SingleOrDefaultAsync(s => s.Id == id);
         if (e == null)
         {
             return NotFound();

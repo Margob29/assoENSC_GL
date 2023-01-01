@@ -7,16 +7,11 @@ public class Group
     public int Id { get; set; }
     public string Name { get; set; } = null!;
 
-    public List<Student> Students { get; set; } = new();
-
+    public ICollection<Member> Students { get; set; }
 
     [Display(Name = "Nombre de membres")]
     public int NbMembers { get; set; } = 0;
     public List<Event>? Events { get; set; }
-
-    public Student President { get; set; } = null!;
-    public int PresidentId { get; set; }
-
 
     public string Description { get; set; } = null!;
 

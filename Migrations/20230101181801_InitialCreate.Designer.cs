@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace projetalexmargo.Migrations
 {
     [DbContext(typeof(ENSCContext))]
-    [Migration("20221231101840_InitialCreate")]
+    [Migration("20230101181801_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -64,13 +64,7 @@ namespace projetalexmargo.Migrations
                     b.Property<int>("NbMembers")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PresidentId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PresidentId")
-                        .IsUnique();
 
                     b.ToTable("Groups");
                 });
@@ -96,6 +90,41 @@ namespace projetalexmargo.Migrations
                     b.ToTable("GroupViewers");
                 });
 
+            modelBuilder.Entity("ENSC.Models.Member", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("StudentId", "GroupId");
+
+                    b.HasAlternateKey("GroupId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Members");
+                });
+
+            modelBuilder.Entity("ENSC.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("ENSC.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -105,7 +134,7 @@ namespace projetalexmargo.Migrations
                     b.Property<string>("EmailAdress")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int?>("GroupId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -123,22 +152,9 @@ namespace projetalexmargo.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GroupId");
+
                     b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("GroupStudent", b =>
-                {
-                    b.Property<int>("GroupsId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("GroupsId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
-
-                    b.ToTable("GroupStudent");
                 });
 
             modelBuilder.Entity("ENSC.Models.Event", b =>
@@ -150,17 +166,6 @@ namespace projetalexmargo.Migrations
                         .IsRequired();
 
                     b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("ENSC.Models.Group", b =>
-                {
-                    b.HasOne("ENSC.Models.Student", "President")
-                        .WithOne("Group")
-                        .HasForeignKey("ENSC.Models.Group", "PresidentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("President");
                 });
 
             modelBuilder.Entity("ENSC.Models.GroupViewer", b =>
@@ -182,29 +187,52 @@ namespace projetalexmargo.Migrations
                     b.Navigation("IdGroup");
                 });
 
-            modelBuilder.Entity("GroupStudent", b =>
+            modelBuilder.Entity("ENSC.Models.Member", b =>
                 {
-                    b.HasOne("ENSC.Models.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupsId")
+                    b.HasOne("ENSC.Models.Group", "Group")
+                        .WithMany("Students")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ENSC.Models.Student", null)
+                    b.HasOne("ENSC.Models.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("StudentsId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ENSC.Models.Student", "Student")
+                        .WithMany("Groups")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("Role");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("ENSC.Models.Student", b =>
+                {
+                    b.HasOne("ENSC.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("ENSC.Models.Group", b =>
                 {
                     b.Navigation("Events");
+
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("ENSC.Models.Student", b =>
                 {
-                    b.Navigation("Group");
+                    b.Navigation("Groups");
                 });
 #pragma warning restore 612, 618
         }

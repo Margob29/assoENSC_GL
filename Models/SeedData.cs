@@ -12,20 +12,37 @@ public class SeedData
                 return;
             }
 
+            Role president = new Role
+            {
+                Name = "Président",
+            };
+
+
+            Role respoEvent = new Role
+            {
+                Name = "Responsable événements",
+            };
+
+            context.Roles.AddRange(respoEvent, president);
+
             // Add student
             Student alaudebert = new Student
             {
                 Name = "Alaudebert",
                 EmailAdress = "alaudebert@ensc.fr",
                 Promo = 2024,
-                Status = 3,
             };
             Student mbiret = new Student
             {
                 Name = "Mbiret",
                 EmailAdress = "mbiret@ensc.fr",
                 Promo = 2024,
-                Status = 3,
+            };
+            Student classerre = new Student
+            {
+                Name = "CLasserre",
+                EmailAdress = "classerre@ensc.fr",
+                Promo = 2025,
             };
             context.Students.AddRange(alaudebert, mbiret);
 
@@ -35,8 +52,6 @@ public class SeedData
                 Name = "BDS",
                 // President = alaudebert,
                 Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
-                Students = new List<Student> { alaudebert, mbiret },
-                President = mbiret,
             };
 
             Group BDE = new Group
@@ -44,11 +59,33 @@ public class SeedData
                 Name = "BDE",
                 // President = mbiret,
                 Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
-                Students = new List<Student> { alaudebert },
-                President = alaudebert,
             };
             context.Groups.AddRange(BDS, BDE);
             context.SaveChanges();
+
+            Member mmbiret = new Member
+            {
+                Group = BDE,
+                Student = mbiret,
+                Role = president,
+            };
+            Member mclasserre = new Member
+            {
+                Group = BDE,
+                Student = classerre,
+                Role = respoEvent,
+            };
+            Member malaudebert = new Member
+            {
+                Group = BDS,
+                Student = alaudebert,
+                Role = president,
+            };
+
+            context.Members.AddRange(mmbiret, malaudebert, mclasserre);
+
+            BDS.Students = new List<Member> { malaudebert };
+            BDE.Students = new List<Member> { mmbiret, mclasserre };
 
             var bds = context.Groups.Where(g => g.Name == "BDS").FirstOrDefault();
 
