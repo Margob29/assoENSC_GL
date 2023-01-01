@@ -5,7 +5,7 @@ namespace ENSC.Models;
 public class Student
 {
     public int Id { get; set; }
-    public string Name { get; set; } = null!;
+    public string   Name { get; set; } = null!;
     public string? EmailAdress { get; set; }
 
     public string? Password { get; set; }
@@ -16,5 +16,4 @@ public class Student
     public ICollection<Member>? Groups { get; set; }
     public Group? Group { get; set; }
     //public int GroupId { get; set; }
-    public int Status { get; set; }
 }

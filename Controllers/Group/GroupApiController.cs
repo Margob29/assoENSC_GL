@@ -18,13 +18,14 @@ public class GroupApiController : ControllerBase
 
     // --------------- READ -----------------
     //Get groups
-    public async Task<ActionResult<IEnumerable<Group>>> Getgroups()
+    [Route("GetGroups")]
+    public async Task<ActionResult<IEnumerable<Group>>> GetGroups()
     {
         var groups = _context.Groups;
         return await groups.ToListAsync();
     }
 
-    //Get an group with his id
+    //Get an group with his id  
     [HttpGet("{id}")]
     public async Task<ActionResult<Group>> GetGroup(int id)
     {
@@ -32,6 +33,9 @@ public class GroupApiController : ControllerBase
             .Where(s => s.Id == id)
             .Include(s => s.Events)
             .Include(s => s.Students)
+            .ThenInclude(m => m.Role)
+            .Include(s => s.Students)
+            .ThenInclude(m => m.Student)
             .SingleOrDefaultAsync();
 
         if (_group == null)
@@ -46,8 +50,6 @@ public class GroupApiController : ControllerBase
     {
 
         Group _group = new Group(groupDTO);
-        //var president = _context.Students.Find(_group.PresidentId);
-        //_group.President = president!;
         _context.Groups.Add(_group);
         await _context.SaveChangesAsync();
 

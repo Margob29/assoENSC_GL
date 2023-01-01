@@ -42,8 +42,8 @@
                 <div class="card-footer">
                     @if (item.Students != null)
                     {
-                        var president = item.Students
-                        .Where(s => s.Role.Name == "Président").FirstOrDefault();
+                        var president = item.Students.Where(s => s.Role.Name == "Président").FirstOrDefault();
+
                         @if (president != null)
                         {
                             <p>Président : @president.Student.Name</p>
