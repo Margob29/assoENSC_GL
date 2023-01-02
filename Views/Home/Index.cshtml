@@ -22,6 +22,7 @@
 
                 <a class="btn btn-outline-secondary" asp-area="" asp-controller="Group" asp-action="Index">Voir les
                     clubs</a>
+                <br /><br />
                 <a class="btn btn-outline-secondary" asp-area="" asp-controller="Group" asp-action="Create">Créer un
                     club</a>
 
@@ -48,12 +49,39 @@
                     école</p>
                 <a class="btn btn-outline-secondary" asp-area="" asp-controller="Event" asp-action="Index">Voir les
                     événements</a>
+                <br /><br />
                 <a class="btn btn-outline-secondary" asp-area="" asp-controller="Group" asp-action="Index">Créer un
                     événement</a>
 
             </div>
         </div>
+        <div class="card col m-3 orange" style="width: 18rem;">
+            <div class="card-body">
+                <div class="row">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC300"
+                        class="bi bi-people-fill col-2" viewBox="0 0 16 16">
+                        <path
+                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                    </svg>
+                    <h5 class="card-title col-8" f>Les Etudiants</h5>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFC300"
+                        class="bi bi-people-fill col-2" viewBox="0 0 16 16">
+                        <path
+                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+                    </svg>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">Qui sommes nous</h6>
+                <p class="card-text">Depuis le création de cette école, l'ENSC à accueilli un grand nombre de petit
+                    poulpi, mais qui sont ils ?</p>
+
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Student" asp-action="Index">Voir la liste des étudiants</a>
+                <br /><br />
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Student" asp-action="Create">Ajouter un étudiant</a>
+
+            </div>
+        </div>
     </div>
+
     <div id="carouselExampleIndicators" class="carousel slide w-75 m-auto" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

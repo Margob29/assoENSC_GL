@@ -34,6 +34,11 @@ public class ENSCContext : DbContext
         .HasIndex(b => b.Name)
         .IsUnique();
 
+
+        modelBuilder.Entity<Student>()
+        .HasIndex(b => b.EmailAdress)
+        .IsUnique();
+
         modelBuilder.Entity<Member>()
             .HasKey(m => new { m.StudentId, m.GroupId });
 
