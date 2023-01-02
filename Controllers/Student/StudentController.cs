@@ -21,23 +21,10 @@ public class StudentController : Controller
         return View(students);
     }
 
-    public async Task<IActionResult> Create()
-    {
-        return View();
-    }
-
-    static bool IsValidEmail(string email)
-    {
-        try
-        {
-            var addr = new System.Net.Mail.MailAddress(email);
-            return addr.Address == email;
-        }
-        catch
-        {
-            return false;
-        }
-    }
+    /* public async Task<IActionResult> Create()
+     {
+         return View();
+     }*/
 
     // [HttpPost]
     public async Task<ActionResult<Student>> CreateResult(StudentDto studentDTO)
