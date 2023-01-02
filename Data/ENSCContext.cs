@@ -30,6 +30,10 @@ public class ENSCContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Group>()
+        .HasIndex(b => b.Name)
+        .IsUnique();
+
         modelBuilder.Entity<Member>()
             .HasKey(m => new { m.StudentId, m.GroupId });
 

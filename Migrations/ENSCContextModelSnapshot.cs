@@ -58,10 +58,13 @@ namespace projetalexmargo.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("NbMembers")
+                    b.Property<int?>("NbMembers")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Groups");
                 });
@@ -142,9 +145,6 @@ namespace projetalexmargo.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Promo")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

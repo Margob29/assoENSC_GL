@@ -93,7 +93,7 @@ public class SeedData
             if (bds != null)
             {
                 // Incrémenter le compteur de membre
-                bds.NbMembers = 2;
+                //    bds.NbMembers = 2;
             }
 
             var bde = context.Groups.Where(g => g.Name == "BDE").FirstOrDefault();
@@ -102,7 +102,7 @@ public class SeedData
             if (bde != null)
             {
                 // Incrémenter le compteur de membre
-                bde.NbMembers = 1;
+                //    bde.NbMembers = 1;
             }
 
             //Add events

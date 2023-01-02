@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace projetalexmargo.Migrations
 {
     [DbContext(typeof(ENSCContext))]
-    [Migration("20230101181801_InitialCreate")]
+    [Migration("20230102002746_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -61,10 +61,13 @@ namespace projetalexmargo.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("NbMembers")
+                    b.Property<int?>("NbMembers")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Groups");
                 });
@@ -145,9 +148,6 @@ namespace projetalexmargo.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Promo")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
