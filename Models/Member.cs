@@ -12,4 +12,15 @@ public class Member
     public int RoleId { get; set; }
 
     public Role Role { get; set; } = null!;
+
+    public Member()
+    {
+    }
+
+    public Member(MemberDTO dto)
+    {
+        StudentId = dto.StudentId;
+        GroupId = dto.GroupId;
+        RoleId = dto.RoleId;
+    }
 }

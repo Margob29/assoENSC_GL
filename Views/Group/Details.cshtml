@@ -46,7 +46,7 @@
         {
             @foreach (var member in Model.Students)
             {
-                if (member.Role.Name == "Président" )
+                if (member.Role.Name == "Président")
                 {
 
                     <p class="purple"><strong>@Html.DisplayFor(model=>member.Role.Name)</strong> : @Html.DisplayFor(model
@@ -61,5 +61,8 @@
                 }
             }
         }
+        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Member" asp-action="Create"
+            asp-route-id="@Model.Id">Ajouter un membre</a>
+
     </div>
 </div>

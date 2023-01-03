@@ -5,6 +5,9 @@
 }
 
 <h1 class="text-center">Clubs</h1>
+<h1 class="text-center"><a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Group"
+        asp-action="Create">Créer un
+        club</a></h1>
 <hr />
 <div class="row justify-content-center">
     @foreach (var item in Model)
@@ -52,11 +55,11 @@
                     <p>@Html.DisplayNameFor(item => item.NbMembers) : @Html.DisplayFor(model => item.NbMembers) </p>
                     <div class="d-flex flex-row-reverse">
                         <a class="p-2 col-6 text-muted" asp-action="Details" asp-route-id="@item.Id">Voir les détails</a>
-                        <a class="p-2 text-muted" asp-controller="Member" asp-action="Create" asp-route-id="@item.Id">Ajouter un membre</a>
+                        <a class="p-2 text-muted" asp-controller="Member" asp-action="Create"
+                        asp-route-id="@item.Id">Ajouter un membre</a>
                     </div>
                 </div>
             </div>
         </div>
     }
-
 </div>

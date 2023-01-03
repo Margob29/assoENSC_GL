@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ENSC.Data;
 using Microsoft.EntityFrameworkCore;
 using ENSC.Models;
@@ -13,42 +14,69 @@ public class MemberController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Create()
+    // GET: Member/Create?id=5
+    public async Task<IActionResult> Create(int? id)
     {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var e = await _context.Groups
+        .SingleOrDefaultAsync(s => s.Id == id);
+
+        if (e == null)
+        {
+            return NotFound();
+        }
+
+        // Liste des roles jamais utilisé dans le groupe
+        var memberRolesQuery = _context.Roles.Where(r => !_context.Members.Any(m => m.Group.Id == id && m.Role.Id == r.Id)).ToList();
+        var memberStudentQuery = _context.Students.Where(r => !_context.Members.Any(m => m.Group.Id == id && m.Student.Id == r.Id)).ToList();
+
+        if (memberRolesQuery.Count() == 0)
+        {
+            ViewBag.ErrorMessageRole = "Vous n'avez plus de rôle disponnible pour ce groupe, créez en un pour pouvoir ajouter un membre ";
+        }
+        else if (memberStudentQuery.Count() == 0)
+        {
+            ViewBag.ErrorMessageStudent = "Vous n'avez plus d'étudiant disponnible pour ce groupe, créez en un pour pouvoir ajouter un membre ";
+
+        }
+
+        ViewData["Group"] = e;
+        ViewData["Role"] = new SelectList(memberRolesQuery, "Id", "Name"); ;
+        ViewData["Student"] = new SelectList(memberStudentQuery, "Id", "Name");
+
         return View();
     }
 
+
     // [HttpPost]
-    public async Task<ActionResult<Group>> CreateResult(GroupDTO groupDTO)
+    public async Task<ActionResult<Member>> CreateMember(MemberDTO memberDTO)
     {
-
-        ViewBag.Name = groupDTO.Name;
-        ViewBag.Description = groupDTO.Description;
-
         // Valider les données du formulaire
-        if (!ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            ViewBag.ErrorMessage = "Le nom et la description sont obligatoires";
-            return View("Create");
-        }
+            // Créer un nouveau groupe à partir des données du formulaire
+            Member member = new Member(memberDTO);
 
-        // Créer un nouveau groupe à partir des données du formulaire
-        Group group = new Group(groupDTO);
-        try
-        {
-            _context.Groups.Add(group);
+            _context.Members.Add(member);
             await _context.SaveChangesAsync();
+
+            var e = await _context.Members
+                    .SingleOrDefaultAsync(s => s.GroupId == member.GroupId && s.StudentId == member.StudentId);
+            var group = await _context.Groups.SingleOrDefaultAsync(g => g.Id == member.GroupId);
+
+            if (group != null)
+            {
+                // Incrémenter la valeur nbMembers de 1
+                group.NbMembers++;
+            }
+            await _context.SaveChangesAsync();
+
         }
-        catch
-        {
-            ViewBag.ErrorMessage = "Il existe déjà un club avec ce nom";
-            return View("Create");
-        }
-
-
-
         // Retourner un code de réponse 201 (Created) avec l'URL du nouveau groupe
         return Redirect("/Group");
     }
-
 }
