@@ -9,7 +9,8 @@
         <div class="col-xl-4 col-md-6 col-sm-6 align-self-center">
             <h1>@Html.DisplayFor(model => model.Name)</h1>
             <p class="text-muted"> @Html.DisplayFor(model => model.Date) </p>
-            <a href="#" class="btn btn-BDS btn-sm">@Html.DisplayFor(model => model.Group.Name)</a>
+            <a class="btn btn-BDS btn-sm" asp-controller="Group" asp-action="Details"
+                asp-route-id="@Model.Group.Id">@Html.DisplayFor(model => model.Group.Name)</a>
         </div>
         <div class="col">
             <img src="/interpromo.jpg" class="rounded img-fluid p-3" alt=" Photo évènement">
@@ -18,5 +19,8 @@
     <br /><br />
     <div class="row">
         <h5 class="text-center">@Html.DisplayFor(model => model.Description)</h5>
+    </div>
+    <div>
+        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Event" asp-action="Delete">Supprimer l'évènement</a>
     </div>
 </div>

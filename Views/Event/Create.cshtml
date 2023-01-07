@@ -1,34 +1,40 @@
-@model SelectList
+@model ENSC.Models.Event
 
 @{
     ViewData["Title"] = "Create";
+    var groupList = ViewData["Group"] as SelectList;
 }
-<h1 class="text-center">Créer votre évènement !</h1>
-<hr />
-<div class="container mb-5">
-    <div class="row d-flex justify-content-center">
-        <div class="col-sm-12 col-lg-5">
-            <form method="post">
-                <fieldset class="form bg-light p-4 background ">
-                    <div class="row mb-3">
-                        <div class="col-12 mb-3 text-center">
-                            <label for="Name" class="col-form-label">Club créateur de l'évènement</label>
-                            </br>
-                            <select name="Name" class="form-select select-size" required asp-items="Model">
+<div class="mx-auto d-flex flex-column align-items-center text-center">
+    <h2 class="purple" style="width: 50%;">Créer votre évènement !</h2>
 
-                            </select>
-                        </div>
-                        <div class="col-12 mb-3 text-center">
-                            <label for="Description">Description de l'évènement</label>
-                            </br>
-                            <textarea name="Description" id="Description" class="form-control" required></textarea>
-                        </div>
-                        <div class="col-12 d-grid gap-2 d-flex justify-content-center">
-                            <a type="submit" class="btn btn-success mb-2">Créer l'évènement</a>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
+    <hr />
+
+    <form method="post" action="/Event/CreateEvent">
+        <div class="form-group">
+            <div class="form-group">
+                <label for="GroupId" class="col-form-label">Club créateur de l'évènement</label>
+                <br />
+                <select name="GroupId" class="form-control" required asp-items="@groupList"></select>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <label for="Name">Nom de l'évènement</label>
+                <br />
+                <input type="text" name="Name" id="Name" class="form-control" required></input>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <label for="Description">Description de l'évènement</label>
+                <br />
+                <textarea name="Description" id="Description" class="form-control" required></textarea>
+            </div>
+            <br />
+            <br />
+            <div>
+                <button class="btn btn-primary" type="submit">Ajouter l'évènement</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>

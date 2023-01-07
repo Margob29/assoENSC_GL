@@ -36,11 +36,11 @@ public class MemberController : Controller
 
         if (memberRolesQuery.Count() == 0)
         {
-            ViewBag.ErrorMessageRole = "Vous n'avez plus de rôle disponnible pour ce groupe, créez en un pour pouvoir ajouter un membre ";
+            ViewBag.ErrorMessageRole = "Vous n'avez plus de rôle disponible pour ce groupe, créez en un pour pouvoir ajouter un membre ";
         }
         else if (memberStudentQuery.Count() == 0)
         {
-            ViewBag.ErrorMessageStudent = "Vous n'avez plus d'étudiant disponnible pour ce groupe, créez en un pour pouvoir ajouter un membre ";
+            ViewBag.ErrorMessageStudent = "Vous n'avez plus d'étudiant disponible pour ce groupe, créez en un pour pouvoir ajouter un membre ";
 
         }
 

@@ -42,7 +42,6 @@ public class EventApiController : ControllerBase
         return _event;
     }
 
-    // /!\ Ne fonctionne pas, à revoir
     // --------------- UPDATE -----------------
     //Update an event with his id
     [HttpPut("{id}")]

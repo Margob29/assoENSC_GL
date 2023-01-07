@@ -6,6 +6,9 @@
 }
 
 <h1 class="text-center">Evènements</h1>
+<h1 class="text-center"><a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Event"
+        asp-action="Create">Créer un
+        évènement</a></h1>
 <hr />
 <div class="row">
     <div class="col-sm-2">
@@ -36,14 +39,10 @@
                     </div>
                 </a>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-BDS btn-sm"> @Html.DisplayFor(modelItem => item.Group.Name) </a>
+                    <a class="btn btn-BDS btn-sm" asp-controller="Group" asp-action="Details" asp-route-id="@item.Group.Id">
+                        @Html.DisplayFor(modelItem => item.Group.Name) </a>
                 </div>
             </div>
         </div>
     }
-</div>
-<div class="container text-center">
-    <div class="col align-self-center">
-        <button class="btn btn-outline-primary" asp-controller="Event" asp-action="Create">Créer</button>
-    </div>
 </div>
