@@ -22,6 +22,10 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </div>
                 </div>
+                <div class="card-footer text-center">
+                    <a class="text-decoration-none text-muted" asp-controller="Role" asp-action="Delete"
+                    asp-route-id="@item.Id">Delete</a>
+                </div>
             </div>
         </div>
     }

@@ -81,10 +81,23 @@ public class GroupController : Controller
             return View("Create");
         }
 
-
-
         // Retourner un code de réponse 201 (Created) avec l'URL du nouveau groupe
         return Redirect("/Group");
+    }
+
+    public async Task<ActionResult<Group>> Delete(int id)
+    {
+        var group = _context.Groups.Where(r => r.Id == id).Single();
+        try
+        {
+            _context.Groups.Remove(group);
+            await _context.SaveChangesAsync();
+        }
+        catch
+        {
+            ViewBag.ErrorMessage = "Ce group n'existe pas";
+        }
+        return Redirect("/Role");
     }
 
 }
