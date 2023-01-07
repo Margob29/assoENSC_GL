@@ -58,7 +58,7 @@
                     <p class="text-center">@Html.DisplayFor(model=>member.Role.Name): @Html.DisplayFor(model
             =>member.Student.Name) année
                         @Html.DisplayFor(model=>member.Student.Promo)
-                        <a class="btn btn-outline-secondary col-1" asp-area="" asp-controller="Member" asp-action="Delete"
+                        <a class="btn btn-outline-warning col-1" asp-area="" asp-controller="Member" asp-action="Delete"
                 asp-route-studentID="@member.StudentId" asp-route-groupId="@member.GroupId">X</a>
                     </p>
                 }
