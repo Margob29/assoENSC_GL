@@ -31,9 +31,6 @@ public class RoleController : Controller
     // [HttpPost]
     public async Task<ActionResult<Role>> CreateResult(RoleDTO roleDTO)
     {
-
-        ViewBag.Name = roleDTO.Name;
-
         // Valider les données du formulaire
         if (!ModelState.IsValid)
         {
@@ -55,6 +52,21 @@ public class RoleController : Controller
         }
 
         // Retourner un code de réponse 201 (Created) avec l'URL du nouveau role
+        return Redirect("/Role");
+    }
+
+    public async Task<ActionResult<Role>> Delete(int id)
+    {
+        var role = _context.Roles.Where(r => r.Id == id).Single();
+        try
+        {
+            _context.Roles.Remove(role);
+            await _context.SaveChangesAsync();
+        }
+        catch
+        {
+            ViewBag.ErrorMessage = "Ce role n'existe pas";
+        }
         return Redirect("/Role");
     }
 

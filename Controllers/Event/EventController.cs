@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ENSC.Data;
 using Microsoft.EntityFrameworkCore;
+using ENSC.Models;
 
 namespace ENSC.Controllers;
 
@@ -32,6 +33,21 @@ public class EventController : Controller
             return NotFound();
         }
         return View(e);
+    }
+
+    public async Task<ActionResult<Event>> Delete(int id)
+    {
+        var eventD = _context.Events.Where(r => r.Id == id).Single();
+        try
+        {
+            _context.Events.Remove(eventD);
+            await _context.SaveChangesAsync();
+        }
+        catch
+        {
+            ViewBag.ErrorMessage = "Cet événement n'existe pas";
+        }
+        return Redirect("/Event");
     }
 
 }

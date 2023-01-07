@@ -48,12 +48,27 @@ public class StudentController : Controller
             ViewBag.ErrorMessage = "Il existe déjà un étudiant avec cette adresse mail";
             return View("Create");
         }
-        
+
         await _context.SaveChangesAsync();
 
 
 
         // Retourner un code de réponse 201 (Created) avec l'URL du nouveau groupe
+        return Redirect("/Student");
+    }
+
+    public async Task<ActionResult<Student>> Delete(int id)
+    {
+        var student = _context.Students.Where(r => r.Id == id).Single();
+        try
+        {
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
+        }
+        catch
+        {
+            ViewBag.ErrorMessage = "Cet étudiant n'existe pas";
+        }
         return Redirect("/Student");
     }
 
