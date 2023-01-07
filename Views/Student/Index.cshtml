@@ -20,6 +20,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Promo)
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +35,10 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Promo)
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Student"
+                            asp-action="Delete" asp-route-id="@item.Id">X</a>
                         </td>
                     </tr>
                 }

@@ -41,8 +41,19 @@
                 <div class="card-footer">
                     <a class="btn btn-BDS btn-sm" asp-controller="Group" asp-action="Details" asp-route-id="@item.Group.Id">
                         @Html.DisplayFor(modelItem => item.Group.Name) </a>
+                    <a href="#" class="btn btn-BDS btn-sm"> @Html.DisplayFor(modelItem => item.Group.Name) </a>
+                    <div class="text-center">
+                        <a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Event" asp-action="Delete"
+                        asp-route-id="@item.Id">Supprimer</a>
+                    </div>
                 </div>
             </div>
         </div>
     }
+</div>
+<div class="container text-center">
+    <div class="col align-self-center">
+        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Event" asp-action="Create">Créer un
+            événement</a>
+    </div>
 </div>

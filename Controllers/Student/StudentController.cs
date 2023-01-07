@@ -48,7 +48,7 @@ public class StudentController : Controller
             ViewBag.ErrorMessage = "Il existe déjà un étudiant avec cette adresse mail";
             return View("Create");
         }
-        
+
         await _context.SaveChangesAsync();
 
 
