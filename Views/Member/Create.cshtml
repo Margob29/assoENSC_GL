@@ -1,0 +1,62 @@
+@model ENSC.Models.Member
+
+@{
+    ViewData["Title"] = "Membre";
+    ENSC.Models.Group group = (ENSC.Models.Group)ViewData["Group"]!;
+    var roleList = ViewData["Role"] as SelectList;
+    var studentList = ViewData["Student"] as SelectList;
+
+
+}
+<div class="mx-auto d-flex flex-column align-items-center text-center">
+    <h2 class="purple" style="width: 50%;"> Ajouter un membre au club @group.Name</h2>
+
+    <hr />
+
+    <p> Rejoins l'aventure !</p>
+    <hr />
+
+    <form method="post" action="/Member/CreateMember">
+        <div class="form-group">
+            @if (ViewBag.ErrorMessageRole != null)
+            {
+                <div class="alert alert-danger">@ViewBag.ErrorMessageRole</div>
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Role" asp-action="Create">Ajouter un
+                    rôle</a>
+
+            }
+            else if (ViewBag.ErrorMessageStudent != null)
+            {
+                <div class="alert alert-danger">@ViewBag.ErrorMessageStudent</div>
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Student" asp-action="Create">Ajouter un
+                    Etudiant</a>
+            }
+            else
+            {
+                <div>
+                    <input class="form-control" type="hidden" id="GroupId" name="GroupId" value=@group.Id>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Role" class="control-label"></label>
+                    <select asp-for="RoleId" class="form-control" asp-items="@roleList"></select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label asp-for="Student" class="control-label">Etudiant</label>
+                    <select asp-for="StudentId" class="form-control" asp-items="@studentList"></select>
+                    <span asp-validation-for="StudentId" class="text-danger"></span>
+                </div>
+                <br />
+                <br />
+                <div>
+                    <button class="btn btn-primary" type="submit">Ajouter le membre</button>
+                </div>
+            }
+        </div>
+    </form>
+</div>
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

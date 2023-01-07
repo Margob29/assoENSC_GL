@@ -1,0 +1,65 @@
+@model IEnumerable<ENSC.Models.Group>
+
+@{
+    ViewData["Title"] = "Groups";
+}
+
+<h1 class="text-center">Clubs</h1>
+<h1 class="text-center"><a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Group"
+        asp-action="Create">Créer un
+        club</a></h1>
+<hr />
+<div class="row justify-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-3">
+            <div class="card border-dark">
+                <div class="card-header bg-ENSC text-center text-white fw-bold fs-4">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </div>
+                <div class="card-body">
+                    <img src="/interpromo.JPG" class="img-fluid" alt="Photo du club ">
+                    <br />
+                    <br />
+                    <div class="row">
+                        @if (item.Events != null)
+                        {
+                            @foreach (var clubEvent in item.Events)
+                            {
+                                <a class="col text-decoration-none text-muted" asp-controller="Event" asp-action="Details"
+                        asp-route-id="@clubEvent.Id">
+                                    <div class="card border-dark ">
+                                        <div class="card-body ">
+                                            <p class="card-text text-center purple">@Html.DisplayFor(modelItem => clubEvent.Name)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                                <br />
+                                <br />
+                                <br />
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-footer">
+                    @if (item.Students != null)
+                    {
+                        var president = item.Students.Where(s => s.Role.Name == "Président").FirstOrDefault();
+
+                        @if (president != null)
+                        {
+                            <p>Président : @president.Student.Name</p>
+                        }
+                        <p>Nombre de membres : @item.Students.Count() </p>
+                    }
+                    <div class="d-flex flex-row-reverse">
+                        <a class="p-2 col-6 text-muted" asp-action="Details" asp-route-id="@item.Id">Voir les détails</a>
+                        <a class="p-2 text-muted" asp-controller="Member" asp-action="Create"
+                        asp-route-id="@item.Id">Ajouter un membre</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,41 @@
+@model ENSC.Models.Role
+
+@{
+    ViewData["Title"] = "Role";
+}
+<div class="mx-auto d-flex flex-column align-items-center text-center">
+    <h2 class="purple" style="width: 50%;"> Créer un Role </h2>
+
+    <hr />
+
+    <p> Responsable matériel ou même masquotte tout les rôles sont possibles !</p>
+
+    <hr />
+
+    <form method="post" action="/Role/CreateResult">
+        <div class="form-group">
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+            }
+            <div>
+                <label for="Name">Nom du Role :</label>
+                <input class="form-control" type="text" id="Name" name="Name" value=@ViewBag.Name>
+            </div>
+            <br />
+            <br />
+            <div>
+                <label for="Description">Description :</label>
+                <input class="form-control" id="Description" name="Description" value=@ViewBag.Description></input>
+            </div>
+            <br />
+            <br />
+            <div>
+                <button class="btn btn-primary" type="submit">Créer le rôle</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

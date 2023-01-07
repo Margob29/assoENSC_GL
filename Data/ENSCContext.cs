@@ -6,9 +6,10 @@ namespace ENSC.Data;
 public class ENSCContext : DbContext
 {
     public DbSet<Student> Students { get; set; } = null!;
+    public DbSet<Role> Roles { get; set; } = null!;
+    public DbSet<Member> Members { get; set; } = null!;
     public DbSet<Event> Events { get; set; } = null!;
     public DbSet<Group> Groups { get; set; } = null!;
-    public DbSet<Member> Members { get; set; } = null!;
     public DbSet<GroupViewer> GroupViewers { get; set; } = null!;
     public string DbPath { get; private set; }
 
@@ -26,4 +27,37 @@ public class ENSCContext : DbContext
         // Optional: log SQL queries to console
         options.LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information);
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Group>()
+        .HasIndex(b => b.Name)
+        .IsUnique();
+
+
+        modelBuilder.Entity<Student>()
+        .HasIndex(b => b.EmailAdress)
+        .IsUnique();
+
+        modelBuilder.Entity<Member>()
+            .HasKey(m => new { m.StudentId, m.GroupId });
+
+        modelBuilder.Entity<Member>()
+           .HasAlternateKey(m => new { m.GroupId, m.RoleId });
+
+
+        modelBuilder.Entity<Member>()
+            .HasOne(sg => sg.Student)
+            .WithMany(s => s.Groups)
+            .HasForeignKey(sg => sg.StudentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+
+        modelBuilder.Entity<Member>()
+            .HasOne(sg => sg.Group)
+            .WithMany(g => g.Students)
+            .HasForeignKey(sg => sg.GroupId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
+
 }

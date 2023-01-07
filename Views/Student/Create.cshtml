@@ -1,0 +1,41 @@
+<h2>Ajouter un étudiant</h2>
+<form method="post" action="/Student/CreateResult">
+    <div class="form-group">
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+        }
+        <div>
+            <label for="Name">Nom :</label>
+            <input class="form-control" type="text" id="Name" name="Name" value=@ViewBag.Name>
+        </div>
+        <br />
+        <br />
+        <div>
+            <label for="EmailAdress">Email :</label>
+            <input class="form-control" id="EmailAdress" type="text"
+                pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+                name="EmailAdress" title="Veuillez entrer une adresse email valide" value=@ViewBag.EmailAdress></input>
+        </div>
+        <br />
+        <br />
+        <div>
+            <label for="year">Promotion :</label>
+            <select class="form-control" id="year" name="promo">
+                <option value="">-- Sélectionnez --</option>
+                <script>
+                    var currentYear = new Date().getFullYear();
+                    for (var i = 2009; i <= currentYear + 3; i++) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                </script>
+            </select>
+
+        </div>
+        <br />
+        <br />
+        <div>
+            <button class="btn btn-primary" type="submit">Ajouter l'étudiant</button>
+        </div>
+    </div>
+</form>

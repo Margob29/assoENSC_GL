@@ -1,0 +1,34 @@
+@model SelectList
+
+@{
+    ViewData["Title"] = "Create";
+}
+<h1 class="text-center">Créer votre évènement !</h1>
+<hr />
+<div class="container mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-sm-12 col-lg-5">
+            <form method="post">
+                <fieldset class="form bg-light p-4 background ">
+                    <div class="row mb-3">
+                        <div class="col-12 mb-3 text-center">
+                            <label for="Name" class="col-form-label">Club créateur de l'évènement</label>
+                            </br>
+                            <select name="Name" class="form-select select-size" required asp-items="Model">
+
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3 text-center">
+                            <label for="Description">Description de l'évènement</label>
+                            </br>
+                            <textarea name="Description" id="Description" class="form-control" required></textarea>
+                        </div>
+                        <div class="col-12 d-grid gap-2 d-flex justify-content-center">
+                            <a type="submit" class="btn btn-success mb-2">Créer l'évènement</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,26 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 namespace ENSC.Models;
 
-public class Group
+public class Role
 {
     public int Id { get; set; }
-
     public string Name { get; set; } = null!;
-
-    public ICollection<Member> Students { get; set; }
-
-    [Display(Name = "Nombre de membres")]
-    public int? NbMembers { get; set; }
-    public List<Event>? Events { get; set; }
-
     public string Description { get; set; } = null!;
 
-    public Group()
-    {
-        NbMembers = 0;
-    }
+    public Role() { }
 
-    public Group(GroupDTO dto)
+    public Role(RoleDTO dto)
     {
         Id = dto.Id;
         Name = dto.Name;

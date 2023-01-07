@@ -8,6 +8,14 @@ html {
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 2 rem;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -17,38 +25,36 @@ body {
   margin-bottom: 60px;
 }
 
-.bg-ENSC{
+.bg-ENSC {
   background-color: rgb(73, 22, 87);
 }
-.border-purple
-{
-  border : 4px;
-  border-color: rgb(73, 22, 87);
+
+.purple {
+  color: rgb(73, 22, 87);
 }
 
-.btn-BDE{
+.btn-BDE {
   border-color: rgb(226, 43, 43);
   color: rgb(226, 43, 43);
 }
 
-.btn-BDS{
+.btn-BDS {
   border-color: rgb(43, 226, 70);
   color: rgb(43, 226, 70);
 }
 
-.btn-BDA{
+.btn-BDA {
   border-color: blue;
   color: blue;
 }
 
-.orange {
-  border-color: #FFC300;
-}
+  .orange {
+    border-color: #FFC300;
+  }
 
-.purple {
-  border-color: #39005E;
-
-}
+  .purple {
+    border-color: #39005E;
+  }
 
 .select-size{
   font-size: small;
