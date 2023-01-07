@@ -57,19 +57,4 @@ public class StudentController : Controller
         return Redirect("/Student");
     }
 
-    public async Task<ActionResult<Student>> Delete(int id)
-    {
-        var student = _context.Students.Where(r => r.Id == id).Single();
-        try
-        {
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-        }
-        catch
-        {
-            ViewBag.ErrorMessage = "Cet étudiant n'existe pas";
-        }
-        return Redirect("/Student");
-    }
-
 }
