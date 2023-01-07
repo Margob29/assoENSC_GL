@@ -12,7 +12,7 @@ public class Student
 
     [Display(Name = "Email")]
     [DataType(DataType.EmailAddress)]
-    public string? EmailAdress { get; set; }
+    public string EmailAdress { get; set; } = null!;
 
     public string? Password { get; set; }
 

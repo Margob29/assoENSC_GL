@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace projetalexmargo.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Role : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,7 +32,8 @@ namespace projetalexmargo.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,7 +69,7 @@ namespace projetalexmargo.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    EmailAdress = table.Column<string>(type: "TEXT", nullable: true),
+                    EmailAdress = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: true),
                     Promo = table.Column<int>(type: "INTEGER", nullable: false),
                     GroupId = table.Column<int>(type: "INTEGER", nullable: true)
@@ -166,6 +167,12 @@ namespace projetalexmargo.Migrations
                 name: "IX_Members_RoleId",
                 table: "Members",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_EmailAdress",
+                table: "Students",
+                column: "EmailAdress",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_GroupId",

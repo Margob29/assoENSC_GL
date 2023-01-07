@@ -35,4 +35,44 @@ public class StudentApiController : ControllerBase
 
         return CreatedAtAction(nameof(CreateStudent), new { id = _student.Id }, _student);
     }
+
+    //Update an student with his id
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateStudent(int id, StudentDto studentDto)
+    {
+        if (id != studentDto.Id) return BadRequest();
+
+        Student _student = new Student(studentDto);
+
+        _context.Entry(_student).State = EntityState.Modified;
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!TodoExists(id)) return NotFound();
+            else throw;
+        }
+
+        return NoContent();
+    }
+    private bool TodoExists(int id)
+    {
+        return _context.Students.Any(m => m.Id == id);
+    }
+
+    // ...
+    // DELETE: api/StudentApi/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteStudent(int id)
+    {
+        var student = await _context.Students.FindAsync(id);
+        if (student == null)
+            return NotFound();
+        _context.Students.Remove(student);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
 }

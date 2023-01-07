@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace projetalexmargo.Migrations
 {
     [DbContext(typeof(ENSCContext))]
-    [Migration("20230102130105_uniqueEmailAdress")]
-    partial class uniqueEmailAdress
+    [Migration("20230106233816_Role")]
+    partial class Role
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,10 @@ namespace projetalexmargo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -135,6 +139,7 @@ namespace projetalexmargo.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("EmailAdress")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("GroupId")

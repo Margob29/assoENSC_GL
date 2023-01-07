@@ -51,7 +51,6 @@ public class MemberController : Controller
         return View();
     }
 
-
     // [HttpPost]
     public async Task<ActionResult<Member>> CreateMember(MemberDTO memberDTO)
     {
@@ -62,17 +61,6 @@ public class MemberController : Controller
             Member member = new Member(memberDTO);
 
             _context.Members.Add(member);
-            await _context.SaveChangesAsync();
-
-            var e = await _context.Members
-                    .SingleOrDefaultAsync(s => s.GroupId == member.GroupId && s.StudentId == member.StudentId);
-            var group = await _context.Groups.SingleOrDefaultAsync(g => g.Id == member.GroupId);
-
-            if (group != null)
-            {
-                // Incrémenter la valeur nbMembers de 1
-                group.NbMembers++;
-            }
             await _context.SaveChangesAsync();
 
         }

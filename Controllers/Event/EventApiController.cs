@@ -80,4 +80,7 @@ public class EventApiController : ControllerBase
 
         return CreatedAtAction(nameof(CreateEvent), new { id = _event.Id }, _event);
     }
+
+    
+
 }

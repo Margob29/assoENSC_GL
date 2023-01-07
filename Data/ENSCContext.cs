@@ -49,25 +49,15 @@ public class ENSCContext : DbContext
         modelBuilder.Entity<Member>()
             .HasOne(sg => sg.Student)
             .WithMany(s => s.Groups)
-            .HasForeignKey(sg => sg.StudentId);
+            .HasForeignKey(sg => sg.StudentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
 
         modelBuilder.Entity<Member>()
             .HasOne(sg => sg.Group)
             .WithMany(g => g.Students)
-            .HasForeignKey(sg => sg.GroupId);
-
-        /*modelBuilder.Entity<Group>()
-                    .HasOne(g => g.President)
-                    .WithOne(s => s.Group)
-                    .HasForeignKey<Student>(s => s.GroupId);
-
-        modelBuilder.Entity<Student>()
-                    .HasOne(g => g.Group)
-                    .WithOne(s => s.President)
-                    .HasPrincipalKey<Student>(g => g.Id)
-                    .HasForeignKey<Group>(s => s.PresidentId)
-                    .IsRequired();*/
-
+            .HasForeignKey(sg => sg.GroupId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 
 }

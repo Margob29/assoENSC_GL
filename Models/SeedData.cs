@@ -15,12 +15,14 @@ public class SeedData
             Role president = new Role
             {
                 Name = "Président",
+                Description = "xdrhfcjghkjhcb;hv,jgfgcggxhfjcgkvhbkhh",
             };
 
 
             Role respoEvent = new Role
             {
                 Name = "Responsable événements",
+                Description = "xdrhfcjghkjhcb;hv,jgfgcggxhfjcgkvhbkhh",
             };
 
             context.Roles.AddRange(respoEvent, president);
@@ -83,9 +85,6 @@ public class SeedData
             };
 
             context.Members.AddRange(mmbiret, malaudebert, mclasserre);
-
-            BDS.Students = new List<Member> { malaudebert };
-            BDE.Students = new List<Member> { mmbiret, mclasserre };
 
             var bds = context.Groups.Where(g => g.Name == "BDS").FirstOrDefault();
 

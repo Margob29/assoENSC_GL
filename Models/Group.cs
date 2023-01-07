@@ -25,6 +25,5 @@ public class Group
         Id = dto.Id;
         Name = dto.Name;
         Description = dto.Description;
-        NbMembers = dto.NbMembers;
     }
 }

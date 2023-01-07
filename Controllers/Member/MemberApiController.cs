@@ -62,11 +62,21 @@ public class MemberApiController : ControllerBase
             return BadRequest();
         }
 
-        group.NbMembers++;
-        _context.Groups.Update(group);
-
         await _context.SaveChangesAsync();
 
         return CreatedAtAction(nameof(CreateMember), new { groupId = _member.GroupId, studentId = _member.StudentId }, _member);
+    }
+
+    // --------------- DELETE -----------------
+    // DELETE: api/MemberApi/5/3
+    [HttpDelete("{studentId}/{groupId}")]
+    public async Task<IActionResult> DeleteMember(int studentId, int groupId)
+    {
+        var member = await _context.Members.FindAsync(studentId, groupId);
+        if (member == null)
+            return NotFound();
+        _context.Members.Remove(member);
+        await _context.SaveChangesAsync();
+        return NoContent();
     }
 }

@@ -55,4 +55,43 @@ public class GroupApiController : ControllerBase
 
         return CreatedAtAction(nameof(CreateGroup), new { id = _group.Id }, _group);
     }
+
+    // --------------- DELETE -----------------
+    // DELETE: api/GroupApi/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteGroup(int id)
+    {
+        var group = await _context.Groups.FindAsync(id);
+        if (group == null)
+            return NotFound();
+        _context.Groups.Remove(group);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
+    //Update an group with his id
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateGroup(int id, GroupDTO groupDTO)
+    {
+        if (id != groupDTO.Id) return BadRequest();
+
+        Group _group = new Group(groupDTO);
+
+        _context.Entry(_group).State = EntityState.Modified;
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!TodoExists(id)) return NotFound();
+            else throw;
+        }
+
+        return NoContent();
+    }
+     private bool TodoExists(int id)
+    {
+        return _context.Groups.Any(m => m.Id == id);
+    }
 }

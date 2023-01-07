@@ -116,6 +116,10 @@ namespace projetalexmargo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -132,6 +136,7 @@ namespace projetalexmargo.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("EmailAdress")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("GroupId")

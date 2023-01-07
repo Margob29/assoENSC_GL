@@ -21,10 +21,10 @@ public class StudentController : Controller
         return View(students);
     }
 
-    /* public async Task<IActionResult> Create()
-     {
-         return View();
-     }*/
+    public async Task<IActionResult> Create()
+    {
+        return View("Create");
+    }
 
     // [HttpPost]
     public async Task<ActionResult<Student>> CreateResult(StudentDto studentDTO)
@@ -48,6 +48,8 @@ public class StudentController : Controller
             ViewBag.ErrorMessage = "Il existe déjà un étudiant avec cette adresse mail";
             return View("Create");
         }
+        
+        await _context.SaveChangesAsync();
 
 
 
