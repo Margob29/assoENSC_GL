@@ -97,7 +97,7 @@ public class GroupController : Controller
         {
             ViewBag.ErrorMessage = "Ce group n'existe pas";
         }
-        return Redirect("/Role");
+        return Redirect("/Group");
     }
 
 }
