@@ -37,6 +37,10 @@
                 </a>
                 <div class="card-footer">
                     <a href="#" class="btn btn-BDS btn-sm"> @Html.DisplayFor(modelItem => item.Group.Name) </a>
+                    <div class="text-center">
+                        <a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Event" asp-action="Delete"
+                        asp-route-id="@item.Id">Supprimer</a>
+                    </div>
                 </div>
             </div>
         </div>
