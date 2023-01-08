@@ -24,7 +24,7 @@ public class EventController : Controller
         if (filter == 1) events = await _context.Events.Where(s => s.Date > DateTime.Now).Include(s => s.Group).ToListAsync();
         else if (filter == 2) events = await _context.Events.Where(s => s.Date <= DateTime.Now).Include(s => s.Group).ToListAsync();
         else events = await _context.Events.Include(s => s.Group).ToListAsync();
-        if (events.Count() == 0) ViewBag.ErrorMessageEvent = "Il n'y a pas d'évènements associés à la période sélectionnée.";
+        if (events.Count() == 0) ViewBag.ErrorMessageEvent = "Il n'y a pas d'événements associés à la période sélectionnée.";
         return View(events);
     }
 
