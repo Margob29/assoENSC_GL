@@ -15,14 +15,14 @@ public class SeedData
             Role president = new Role
             {
                 Name = "Président",
-                Description = "je suis un président",
+                Description = "xdrhfcjghkjhcb;hv,jgfgcggxhfjcgkvhbkhh",
             };
 
 
             Role respoEvent = new Role
             {
                 Name = "Responsable événements",
-                Description = "Je crée les événements",
+                Description = "xdrhfcjghkjhcb;hv,jgfgcggxhfjcgkvhbkhh",
             };
 
             context.Roles.AddRange(respoEvent, president);
