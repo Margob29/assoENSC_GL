@@ -9,32 +9,45 @@
 
     <hr />
 
+    <p> Prêt à faire kiffer ton école ?</p>
+    
+    <hr />
+
     <form method="post" action="/Event/CreateEvent">
         <div class="form-group">
-            <div class="form-group">
-                <label for="GroupId" class="col-form-label">Club créateur de l'évènement</label>
+            @if (ViewBag.ErrorMessageGroup != null)
+            {
+                <div class="alert alert-danger">@ViewBag.ErrorMessageGroup</div>
+                <a class="btn btn-outline-secondary" asp-area="" asp-controller="Group" asp-action="Create">Ajouter un
+                    groupe</a>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label for="GroupId" class="col-form-label">Club créateur de l'évènement</label>
+                    <br />
+                    <select name="GroupId" class="form-control" required asp-items="@groupList"></select>
+                </div>
                 <br />
-                <select name="GroupId" class="form-control" required asp-items="@groupList"></select>
-            </div>
-            <br />
-            <br />
-            <div class="form-group">
-                <label for="Name">Nom de l'évènement</label>
                 <br />
-                <input type="text" name="Name" id="Name" class="form-control" required></input>
-            </div>
-            <br />
-            <br />
-            <div class="form-group">
-                <label for="Description">Description de l'évènement</label>
+                <div class="form-group">
+                    <label for="Name">Nom de l'évènement</label>
+                    <br />
+                    <input type="text" name="Name" id="Name" class="form-control" required></input>
+                </div>
                 <br />
-                <textarea name="Description" id="Description" class="form-control" required></textarea>
-            </div>
-            <br />
-            <br />
-            <div>
-                <button class="btn btn-primary" type="submit">Ajouter l'évènement</button>
-            </div>
+                <br />
+                <div class="form-group">
+                    <label for="Description">Description de l'évènement</label>
+                    <br />
+                    <textarea name="Description" id="Description" class="form-control" required></textarea>
+                </div>
+                <br />
+                <br />
+                <div>
+                    <button class="btn btn-primary" type="submit">Ajouter l'évènement</button>
+                </div>
+            }
         </div>
     </form>
 </div>

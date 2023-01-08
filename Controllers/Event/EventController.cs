@@ -61,7 +61,13 @@ public class EventController : Controller
         return Redirect("/Event");
     }
 
+    //================ DELETE =================
     public async Task<ActionResult<Event>> Delete(int id)
+    {
+        var _event = await _context.Events.Where(e => e.Id == id).SingleOrDefaultAsync();
+        return View(_event);
+    }
+    public async Task<ActionResult<Event>> DeleteEvent(int id)
     {
         var eventD = _context.Events.Where(r => r.Id == id).Single();
         try
