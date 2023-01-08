@@ -69,6 +69,7 @@ public class GroupApiController : ControllerBase
         return NoContent();
     }
 
+    // --------------- UDPATE -----------------
     //Update an group with his id
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateGroup(int id, GroupDTO groupDTO)
@@ -90,7 +91,7 @@ public class GroupApiController : ControllerBase
 
         return NoContent();
     }
-     private bool TodoExists(int id)
+    private bool TodoExists(int id)
     {
         return _context.Groups.Any(m => m.Id == id);
     }

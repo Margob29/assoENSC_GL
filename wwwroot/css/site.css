@@ -33,29 +33,24 @@ body {
   color: rgb(73, 22, 87);
 }
 
-.btn-BDE {
-  border-color: rgb(226, 43, 43);
-  color: rgb(226, 43, 43);
-}
-
-.btn-BDS {
+.btn-group {
   border-color: rgb(43, 226, 70);
   color: rgb(43, 226, 70);
 }
 
-.btn-BDA {
-  border-color: blue;
-  color: blue;
+.orange {
+  border-color: #FFC300;
 }
 
-  .orange {
-    border-color: #FFC300;
-  }
-
-  .purple {
-    border-color: #39005E;
-  }
+.purple {
+  border-color: #39005E;
+}
 
 .select-size{
   font-size: small;
+}
+
+.btn-outline-warning{
+  border-color: red;
+  color: red;
 }

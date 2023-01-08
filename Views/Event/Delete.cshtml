@@ -1,0 +1,20 @@
+@model ENSC.Models.Event
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="mx-auto d-flex flex-column align-items-center text-center">
+    <h2 class="purple" style="width: 50%;">Confirmation de suppression d'un évènement</h2>
+
+    <hr />
+
+    <form method="post" action="/Event/DeleteEvent">
+        <div class="form-group">
+            Etes-vous sûrs de vouloir supprimer l'évènement @Model.Name ?
+        </div>
+        <br />
+        <a class="btn btn-outline-warning" asp-area="" asp-controller="Event" asp-action="DeleteEvent"
+            asp-route-id="@Model.Id">Supprimer</a>
+        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Event" asp-action="Index">Annuler</a>
+    </form>
+</div>

@@ -4,10 +4,10 @@
     ViewData["Title"] = "Roles";
 }
 
-<h1 class="text-center">Roles</h1>
+<h1 class="text-center">Rôles</h1>
 <h1 class="text-center"><a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Role"
         asp-action="Create">Créer un
-        role</a></h1>
+        rôle</a></h1>
 <hr />
 <div class="row justify-content-center">
     @foreach (var item in Model)
@@ -23,8 +23,8 @@
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <a class="text-decoration-none text-muted" asp-controller="Role" asp-action="Delete"
-                    asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-outline-warning col-6" asp-controller="Role" asp-action="Delete"
+                    asp-route-id="@item.Id">Supprimer</a>
                 </div>
             </div>
         </div>

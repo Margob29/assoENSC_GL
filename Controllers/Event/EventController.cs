@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ENSC.Data;
 using ENSC.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,8 @@ public class EventController : Controller
         _context = context;
     }
 
-    //GET all the events
+    //========= GET ================
+    //All the events
     public async Task<IActionResult> Index(int filter)
     {
         ViewData["filter"] = filter;
@@ -22,31 +24,51 @@ public class EventController : Controller
         if (filter == 1) events = await _context.Events.Where(s => s.Date > DateTime.Now).Include(s => s.Group).ToListAsync();
         else if (filter == 2) events = await _context.Events.Where(s => s.Date <= DateTime.Now).Include(s => s.Group).ToListAsync();
         else events = await _context.Events.Include(s => s.Group).ToListAsync();
+        if (events.Count() == 0) ViewBag.ErrorMessageEvent = "Il n'y a pas d'évènements associés à la période sélectionnée.";
         return View(events);
     }
 
-    //GET an event with his id
+    //An event with his id
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
+        if (id == null) return NotFound();
+
         var e = await _context.Events.Include(s => s.Group).SingleOrDefaultAsync(s => s.Id == id);
-        if (e == null)
-        {
-            return NotFound();
-        }
+        if (e == null) return NotFound();
+
         return View(e);
     }
 
-    //CREATE en event
-    public async Task<IActionResult> Create(EventDTO eventDTO)
+    //================ CREATE =================
+    public async Task<IActionResult> Create()
     {
+        //Liste de tous les groupes existants
+        var groupQuery = await _context.Groups.ToListAsync();
+        if (groupQuery.Count() == 0) ViewBag.ErrorMessageGroup = "Aucun club n'existe, créez-en un pour ajouter un évènement !";
+        ViewData["Group"] = new SelectList(groupQuery, "Id", "Name");
         return View();
     }
+    public async Task<IActionResult> CreateEvent(EventDTO eventDTO)
+    {
+        // Valider les données du formulaire
+        if (ModelState.IsValid)
+        {
+            eventDTO.Date = DateTime.Now;
+            //Création d'un nouvel évènement
+            Event _event = new Event(eventDTO);
+            _context.Events.Add(_event);
+            await _context.SaveChangesAsync();
+        }
+        return Redirect("/Event");
+    }
 
+    //================ DELETE =================
     public async Task<ActionResult<Event>> Delete(int id)
+    {
+        var _event = await _context.Events.Where(e => e.Id == id).SingleOrDefaultAsync();
+        return View(_event);
+    }
+    public async Task<ActionResult<Event>> DeleteEvent(int id)
     {
         var eventD = _context.Events.Where(r => r.Id == id).Single();
         try

@@ -55,7 +55,13 @@ public class RoleController : Controller
         return Redirect("/Role");
     }
 
+
     public async Task<ActionResult<Role>> Delete(int id)
+    {
+        var _role = await _context.Roles.Where(e => e.Id == id).SingleOrDefaultAsync();
+        return View(_role);
+    }
+    public async Task<ActionResult<Role>> DeleteRole(int id)
     {
         var role = _context.Roles.Where(r => r.Id == id).Single();
         try

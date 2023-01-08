@@ -6,6 +6,9 @@
 }
 
 <h1 class="text-center">Evènements</h1>
+<h1 class="text-center"><a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Event"
+        asp-action="Create">Créer un
+        évènement</a></h1>
 <hr />
 <div class="row">
     <div class="col-sm-2">
@@ -21,34 +24,39 @@
 </div>
 <br />
 <div class="row">
-    @foreach (var item in Model)
+    @if (ViewBag.ErrorMessageEvent != null)
     {
-        <div class="col-sm-3">
-            <div class="card border-dark mb-3">
-                <a class="text-decoration-none text-white" asp-action="Details" asp-route-id="@item.Id">
-                    <div class="card-header bg-ENSC text-center text-white fw-bold fs-4">
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </div>
-                    <div class="card-body">
-                        <img src="/interpromo.JPG" class="img-fluid" alt="Photo évènement">
+        <div class="alert alert-danger">@ViewBag.ErrorMessageEvent</div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-3">
+                <div class="card border-dark mb-3">
+                    <a class="text-decoration-none text-white" asp-action="Details" asp-route-id="@item.Id">
+                        <div class="card-header bg-ENSC text-center text-white fw-bold fs-4">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </div>
+                        <div class="card-body">
+                            <img src="/interpromo.JPG" class="img-fluid" alt="Photo évènement">
+                            <br />
+                            <p class="card-text text-muted"> @Html.DisplayFor(modelItem => item.Date)</p>
+                        </div>
+                    </a>
+                    <div class="card-footer">
+                        <a class="btn btn-group btn-sm" asp-controller="Group" asp-action="Details"
+                    asp-route-id="@item.Group.Id">
+                            @Html.DisplayFor(modelItem => item.Group.Name) </a>
                         <br />
-                        <p class="card-text text-muted"> @Html.DisplayFor(modelItem => item.Date)</p>
-                    </div>
-                </a>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-BDS btn-sm"> @Html.DisplayFor(modelItem => item.Group.Name) </a>
-                    <div class="text-center">
-                        <a class="btn btn-outline-secondary col-6" asp-area="" asp-controller="Event" asp-action="Delete"
+                        <br />
+                        <div class="text-center">
+                            <a class="btn btn-outline-warning col-6" asp-area="" asp-controller="Event" asp-action="Delete"
                         asp-route-id="@item.Id">Supprimer</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     }
-</div>
-<div class="container text-center">
-    <div class="col align-self-center">
-        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Event" asp-action="Create">Créer un
-            événement</a>
-    </div>
 </div>
