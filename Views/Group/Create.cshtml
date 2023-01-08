@@ -1,5 +1,3 @@
-@model ENSC.Models.Group
-
 @{
     ViewData["Title"] = "Club";
 }
@@ -22,13 +20,14 @@
             }
             <div>
                 <label for="Name">Nom du groupe :</label>
-                <input class="form-control" type="text" id="Name" name="Name" value=@ViewBag.Name>
+                <input class="form-control" type="text" id="Name" name="Name" value=@ViewBag.Name required>
             </div>
             <br />
             <br />
             <div>
                 <label for="Description">Description :</label>
-                <input class="form-control" id="Description" name="Description" value=@ViewBag.Description></input>
+                <input class="form-control" id="Description" name="Description" value=@ViewBag.Description
+                    required></input>
             </div>
             <br />
             <br />
