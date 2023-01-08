@@ -1,0 +1,20 @@
+@model ENSC.Models.Member
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="mx-auto d-flex flex-column align-items-center text-center">
+    <h2 class="purple" style="width: 50%;">Voulez vous vraiment enlever ce membre ?</h2>
+
+    <hr />
+
+    <form method="post" action="/Member/DeleteMember">
+        <div class="form-group">
+            Etes-vous sûrs de vouloir supprimer ce membre ?</div>
+        <br />
+        <a class="btn btn-outline-warning col" asp-area="" asp-controller="Member" asp-action="DeleteMember"
+            asp-route-studentID="@Model.StudentId" asp-route-groupId="@Model.GroupId">Supprimer</a>
+        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Group/Details/@Model.GroupId"
+            asp-action="Index">Annuler</a>
+    </form>
+</div>

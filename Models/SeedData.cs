@@ -7,22 +7,22 @@ public class SeedData
         using (var context = new ENSCContext())
         {
             //If BD is empty
-            if (context.Events.Any())
+            /*if (context.Events.Any())
             {
                 return;
-            }
+            }*/
 
             Role president = new Role
             {
                 Name = "Président",
-                Description = "xdrhfcjghkjhcb;hv,jgfgcggxhfjcgkvhbkhh",
+                Description = "je suis un président",
             };
 
 
             Role respoEvent = new Role
             {
                 Name = "Responsable événements",
-                Description = "xdrhfcjghkjhcb;hv,jgfgcggxhfjcgkvhbkhh",
+                Description = "Je crée les événements",
             };
 
             context.Roles.AddRange(respoEvent, president);
@@ -46,7 +46,7 @@ public class SeedData
                 EmailAdress = "classerre@ensc.fr",
                 Promo = 2025,
             };
-            context.Students.AddRange(alaudebert, mbiret);
+            context.Students.AddRange(alaudebert, mbiret, classerre);
 
             //Add group
             Group BDS = new Group
@@ -63,7 +63,6 @@ public class SeedData
                 Description = "C'est ce qu'a affirmé, sur Telegram, le chef adjoint du cabinet de la présidence ukrainienne, Kirill Timoshenko. « Cinq femmes qui venaient d'accoucher étaient encore présentes. Miraculeusement, personne n'a été blessé », a-t-il expliqué.",
             };
             context.Groups.AddRange(BDS, BDE);
-            context.SaveChanges();
 
             Member mmbiret = new Member
             {
@@ -83,26 +82,7 @@ public class SeedData
                 Student = alaudebert,
                 Role = president,
             };
-
             context.Members.AddRange(mmbiret, malaudebert, mclasserre);
-
-            var bds = context.Groups.Where(g => g.Name == "BDS").FirstOrDefault();
-
-            // Vérifier que le groupe a été trouvé
-            if (bds != null)
-            {
-                // Incrémenter le compteur de membre
-                bds.NbMembers = 1;
-            }
-
-            var bde = context.Groups.Where(g => g.Name == "BDE").FirstOrDefault();
-
-            // Vérifier que le groupe a été trouvé
-            if (bde != null)
-            {
-                // Incrémenter le compteur de membre
-                bde.NbMembers = 2;
-            }
 
             //Add events
             Event interpromo = new Event
@@ -135,14 +115,6 @@ public class SeedData
             };
 
             context.Events.AddRange(interpromo, secretSanta, krystal, wes);
-
-            //Add GroupViewer
-            GroupViewer BDSSecretSanta = new GroupViewer
-            {
-                IdEvent = secretSanta,
-                IdGroup = BDS,
-            };
-            context.GroupViewers.Add(BDSSecretSanta);
 
             context.SaveChanges();
         }

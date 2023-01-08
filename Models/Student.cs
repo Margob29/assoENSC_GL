@@ -22,8 +22,6 @@ public class Student
     [Range(1900, 9999)]
     public int Promo { get; set; }
     public ICollection<Member>? Groups { get; set; }
-    public Group? Group { get; set; }
-    //public int GroupId { get; set; }
 
     public Student()
     {

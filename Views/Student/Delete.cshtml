@@ -1,0 +1,19 @@
+@model ENSC.Models.Student
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="mx-auto d-flex flex-column align-items-center text-center">
+    <h2 class="purple" style="width: 50%;">Voulez vous vraiment enlever cet élève ?</h2>
+
+    <hr />
+
+    <form method="post" action="/Member/DeleteMember">
+        <div class="form-group">
+            Etes-vous sûrs de vouloir supprimer l'étudient @Model.Name </div>
+        <br />
+        <a class="btn btn-outline-warning" asp-area="" asp-controller="Student" asp-action="DeleteStudent"
+            asp-route-id="@Model.Id">Supprimer</a>
+        <a class="btn btn-outline-secondary" asp-area="" asp-controller="Student" asp-action="Index">Annuler</a>
+    </form>
+</div>

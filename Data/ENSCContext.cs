@@ -30,7 +30,7 @@ public class ENSCContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Group>()
+        modelBuilder.Entity<Group>()    
         .HasIndex(b => b.Name)
         .IsUnique();
 
