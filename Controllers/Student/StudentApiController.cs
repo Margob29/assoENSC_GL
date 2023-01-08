@@ -16,6 +16,7 @@ public class StudentApiController : ControllerBase
         _context = context;
     }
 
+    // --------------- READ -----------------
     //Get students
     [Route("GetStudents")]
     public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
@@ -36,6 +37,7 @@ public class StudentApiController : ControllerBase
         return CreatedAtAction(nameof(CreateStudent), new { id = _student.Id }, _student);
     }
 
+    // --------------- UPDATE -----------------
     //Update an student with his id
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateStudent(int id, StudentDto studentDto)
@@ -62,7 +64,7 @@ public class StudentApiController : ControllerBase
         return _context.Students.Any(m => m.Id == id);
     }
 
-    // ...
+    // --------------- DELETE -----------------
     // DELETE: api/StudentApi/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteStudent(int id)

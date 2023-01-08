@@ -64,6 +64,7 @@ public class RoleApiController : ControllerBase
         return NoContent();
     }
 
+    // --------------- UPDATE -----------------
     //Update an role with his id
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateRole(int id, RoleDTO roleDTO)

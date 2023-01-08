@@ -16,7 +16,7 @@ public class Event
 
     public Event(EventDTO dto)
     {
-        //Id = dto.Id;
+        Id = dto.Id;
         GroupId = dto.GroupId;
         Date = dto.Date;
         Name = dto.Name;
