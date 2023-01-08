@@ -23,7 +23,7 @@ public class StudentController : Controller
 
     public async Task<IActionResult> Create()
     {
-        return View("Create");
+        return View();
     }
 
     // [HttpPost]

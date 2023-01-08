@@ -87,6 +87,11 @@ public class GroupController : Controller
 
     public async Task<ActionResult<Group>> Delete(int id)
     {
+        var _group = await _context.Groups.Where(g => g.Id == id).SingleOrDefaultAsync();
+        return View(_group);
+    }
+    public async Task<ActionResult<Group>> DeleteGroup(int id)
+    {
         var group = _context.Groups.Where(r => r.Id == id).Single();
         try
         {

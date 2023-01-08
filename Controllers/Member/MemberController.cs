@@ -67,7 +67,6 @@ public class MemberController : Controller
         // Retourner un code de réponse 201 (Created) avec l'URL du nouveau groupe
         return Redirect("/Group/Details/" + memberDTO.GroupId);
     }
-
     public async Task<ActionResult<Member>> Delete(int studentId, int groupId)
     {
         var member = await _context.Members.FindAsync(studentId, groupId);
