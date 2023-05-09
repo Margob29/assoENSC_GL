@@ -6,11 +6,11 @@ public class SeedData
     {
         using (var context = new ENSCContext())
         {
-            //If BD is empty
-            /*if (context.Events.Any())
+            // If BD is empty
+            if (context.Events.Any())
             {
                 return;
-            }*/
+            }
 
             Role president = new Role
             {
